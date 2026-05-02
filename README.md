@@ -62,7 +62,7 @@ pip install flask pandas numpy scikit-learn
 ###  Step 2: Run the Application
 
 ```
-python app.py
+py app.py
 ```
 
 ###  Step 3: Open in Browser
