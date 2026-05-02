@@ -49,8 +49,6 @@ Disease-Prediction/
 └── README.md
 ```
 
----
-
 ##  How to Run the Project
 
 ###  Step 1: Install Required Libraries
@@ -67,15 +65,11 @@ pip install flask pandas numpy scikit-learn
 python app.py
 ```
 
----
-
 ###  Step 3: Open in Browser
 
 ```
 http://127.0.0.1:5000/
 ```
-
-http://127.0.0.1:5000
 
 ##  Output
 
