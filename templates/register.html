@@ -1,0 +1,157 @@
+{% extends "base.html" %}
+{% block title %}Register — MediPredict{% endblock %}
+
+{% block extra_style %}
+<style>
+.auth-wrap{
+  min-height:100vh;display:grid;grid-template-columns:1.05fr 1fr;
+  background:
+    radial-gradient(900px 500px at 0% 0%,#dbeafe 0%,transparent 60%),
+    radial-gradient(700px 400px at 100% 100%,#ccfbf1 0%,transparent 60%),
+    var(--bg);
+}
+.auth-side{
+  position:relative;display:flex;flex-direction:column;justify-content:space-between;
+  padding:48px 56px;color:var(--text);
+  background:linear-gradient(135deg,rgba(37,99,235,0.06),rgba(20,184,166,0.04));
+  border-right:1px solid var(--border);overflow:hidden;
+}
+.auth-side::before{
+  content:"";position:absolute;inset:0;
+  background:
+    radial-gradient(400px 300px at 80% 20%,rgba(14,165,233,0.18),transparent 60%),
+    radial-gradient(500px 400px at 10% 90%,rgba(20,184,166,0.18),transparent 65%);
+  pointer-events:none;
+}
+.auth-side > *{position:relative;z-index:1;}
+.auth-brand{display:flex;align-items:center;gap:12px;font-weight:800;font-size:1.15rem;
+  font-family:'Plus Jakarta Sans',sans-serif;}
+.auth-brand img{width:38px;height:38px;}
+.auth-brand .brand-grad{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.auth-hero{margin-top:60px;}
+.auth-hero h1{font-family:'Plus Jakarta Sans',sans-serif;font-size:2.6rem;font-weight:800;
+  line-height:1.08;letter-spacing:-0.025em;margin-bottom:14px;}
+.auth-hero h1 span{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.auth-hero p{color:var(--muted);font-size:1.02rem;line-height:1.65;max-width:440px;}
+
+.feature-list{margin-top:30px;display:grid;gap:14px;}
+.feature-row{
+  display:flex;align-items:center;gap:14px;
+  background:#fff;border:1px solid var(--border);border-radius:14px;
+  padding:12px 14px;box-shadow:var(--shadow-sm);
+  max-width:420px;
+}
+.feature-row img{width:38px;height:38px;}
+.feature-row b{font-size:0.92rem;color:var(--text);}
+.feature-row p{font-size:0.78rem;color:var(--muted);margin:0;line-height:1.4;}
+
+.auth-form-side{display:flex;align-items:center;justify-content:center;padding:40px 24px;}
+.auth-box{width:100%;max-width:440px;}
+.auth-card{background:#fff;border:1px solid var(--border);border-radius:22px;
+  padding:38px 34px;box-shadow:0 30px 60px -25px rgba(15,23,42,0.18);}
+.auth-title{font-family:'Plus Jakarta Sans',sans-serif;font-size:1.55rem;font-weight:800;
+  margin-bottom:6px;letter-spacing:-0.02em;display:flex;align-items:center;gap:10px;}
+.auth-title img{width:30px;height:30px;}
+.auth-sub{color:var(--muted);font-size:0.92rem;margin-bottom:26px;}
+.input-icon{position:relative;}
+.input-icon input{padding-left:46px;}
+.input-icon .icon{position:absolute;left:11px;top:50%;transform:translateY(-50%);
+  width:24px;height:24px;opacity:0.95;pointer-events:none;}
+.auth-footer{text-align:center;margin-top:18px;font-size:0.88rem;color:var(--muted);}
+.auth-footer a{color:var(--accent);text-decoration:none;font-weight:600;}
+.auth-footer a:hover{text-decoration:underline;}
+.strength-bar{height:5px;border-radius:3px;background:var(--border);margin-top:8px;overflow:hidden;}
+.strength-fill{height:100%;width:0;border-radius:3px;background:#ef4444;transition:width .3s, background .3s;}
+
+@media (max-width: 900px){
+  .auth-wrap{grid-template-columns:1fr;}
+  .auth-side{display:none;}
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="auth-wrap">
+  <div class="auth-side">
+    <div class="auth-brand">
+      <img src="/static/img/logo.png" alt=""/>
+      <span><span class="brand-grad">Medi</span>Predict</span>
+    </div>
+    <div class="auth-hero fade-up">
+      <h1>Join the future<br/>of <span>health analytics.</span></h1>
+      <p>Create an account to access AI-powered disease prediction tools, performance analytics, and clinical insights — all in one beautiful dashboard.</p>
+      <div class="feature-list">
+        <div class="feature-row">
+          <img src="/static/img/heart.png" alt=""/>
+          <div><b>Heart Disease Prediction</b><p>13 clinical parameters · 98% best accuracy</p></div>
+        </div>
+        <div class="feature-row">
+          <img src="/static/img/diabetes.png" alt=""/>
+          <div><b>Diabetes Prediction</b><p>8 medical features · Naive Bayes engine</p></div>
+        </div>
+        <div class="feature-row">
+          <img src="/static/img/chart.png" alt=""/>
+          <div><b>Visual Analytics</b><p>Confusion matrix · Feature importance</p></div>
+        </div>
+      </div>
+    </div>
+    <div></div>
+  </div>
+
+  <div class="auth-form-side">
+    <div class="auth-box fade-up">
+      <div class="auth-card">
+        <div class="auth-title">
+          <img src="/static/img/user.png" alt=""/>
+          Create account
+        </div>
+        <div class="auth-sub">Get started with MediPredict in under a minute.</div>
+
+        {% if error %}
+        <div class="alert alert-error">⚠ {{ error }}</div>
+        {% endif %}
+
+        <form method="POST" action="/register">
+          <div class="form-group">
+            <label>Full Name</label>
+            <div class="input-icon">
+              <img class="icon" src="/static/img/user.png" alt=""/>
+              <input type="text" name="username" placeholder="Enter your name" required/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Email Address</label>
+            <div class="input-icon">
+              <img class="icon" src="/static/img/mail.png" alt=""/>
+              <input type="email" name="email" placeholder="you@example.com" required/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Password</label>
+            <div class="input-icon">
+              <img class="icon" src="/static/img/lock.png" alt=""/>
+              <input type="password" name="password" id="pw" placeholder="Create a password" required/>
+            </div>
+            <div class="strength-bar"><div class="strength-fill" id="sfill"></div></div>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:6px;">
+            Create account
+          </button>
+        </form>
+
+        <div class="auth-footer">
+          Already have an account? <a href="/login">Sign in</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+document.getElementById('pw').addEventListener('input',function(){
+  const v=this.value.length;
+  const f=document.getElementById('sfill');
+  f.style.width=Math.min(v*8,100)+'%';
+  f.style.background=v<4?'#e11d48':v<8?'#f59e0b':'#059669';
+});
+</script>
+{% endblock %}
